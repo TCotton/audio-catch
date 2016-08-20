@@ -5,3 +5,4 @@ app.yaml
 .idea
 src
 dist
+npm-debug.log
