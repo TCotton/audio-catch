@@ -34,12 +34,18 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import {output as pagespeed} from 'psi';
 import pkg from './package.json';
 import jscs from 'gulp-jscs';
+import scsslint from 'gulp-scss-lint';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
+gulp.task('scss-lint', function() {
+  gulp.src('app/styles/*.scss')
+    .pipe(scsslint());
+});
+
 // Lint JavaScript
-gulp.task('lint', () =>
+gulp.task('lint', ['scss-lint'], () =>
   gulp.src('app/scripts/**/*.js')
     .pipe($.eslint())
     .pipe($.eslint.format())
@@ -74,13 +80,16 @@ gulp.task('copy', () =>
 
 // Compile and automatically prefix stylesheets
 gulp.task('styles', () => {
-  const AUTOPREFIXER_BROWSERS = ['last 2 versions'];
+
+  const AUTOPREFIXER_BROWSERS = [
+    'last 2 versions'
+  ];
 
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-    'app/styles/**/*.scss',
-    'app/styles/**/*.css'
-  ])
+      'app/styles/**/*.scss',
+      'app/styles/**/*.css'
+    ])
     .pipe($.newer('.tmp/styles'))
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -99,24 +108,24 @@ gulp.task('styles', () => {
 // to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
 gulp.task('scripts', () =>
-    gulp.src([
+  gulp.src([
       // Note: Since we are not using useref in the scripts build pipeline,
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
       './app/scripts/main.js'
       // Other scripts
     ])
-      .pipe($.newer('.tmp/scripts'))
-      .pipe($.sourcemaps.init())
-      .pipe($.babel())
-      .pipe($.sourcemaps.write())
-      .pipe(gulp.dest('.tmp/scripts'))
-      .pipe($.concat('main.min.js'))
-      .pipe($.uglify({preserveComments: 'some'}))
-      // Output files
-      .pipe($.size({title: 'scripts'}))
-      .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest('dist/scripts'))
+    .pipe($.newer('.tmp/scripts'))
+    .pipe($.sourcemaps.init())
+    .pipe($.babel())
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe($.concat('main.min.js'))
+    .pipe($.uglify({preserveComments: 'some'}))
+    // Output files
+    .pipe($.size({title: 'scripts'}))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('dist/scripts'))
 );
 
 // Scan your HTML for assets & optimize them
