@@ -33,16 +33,21 @@ import swPrecache from 'sw-precache';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import {output as pagespeed} from 'psi';
 import pkg from './package.json';
+import jscs from 'gulp-jscs';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
 // Lint JavaScript
 gulp.task('lint', () =>
-  gulp.src('app/scripts/**/*.js', '!node_modules/**')
+  gulp.src('app/scripts/**/*.js')
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.if(!browserSync.active, $.eslint.failOnError()))
+   /* .pipe(jscs({fix: true}))
+    .pipe(jscs.reporter())
+    .pipe(jscs.reporter('fail'))
+    .pipe(gulp.dest('src'))*/
 );
 
 // Optimize images

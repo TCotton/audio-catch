@@ -22,10 +22,6 @@
     "sinon": true,
     "beforeEach": true
   },
-  "parser": "babel-eslint",
-  "plugins": [
-    "react"
-  ],
   "rules": {
     "block-scoped-var": 2,
     "brace-style": [
@@ -245,26 +241,6 @@
       "avoid-escape"
     ],
     "radix": 2,
-    "jsx-quotes": [
-      2,
-      "prefer-single"
-    ],
-    "react/display-name": 0,
-    "react/jsx-boolean-value": 2,
-    "react/jsx-no-undef": 2,
-    "react/jsx-sort-prop-types": 0,
-    "react/jsx-sort-props": 0,
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/no-did-mount-set-state": 2,
-    "react/no-did-update-set-state": 2,
-    "react/no-multi-comp": 2,
-    "react/no-unknown-property": 2,
-    "react/prop-types": 2,
-    "react/react-in-jsx-scope": 2,
-    "react/self-closing-comp": 2,
-    "react/sort-comp": 0,
-    "react/wrap-multilines": 2,
     "semi": [
       2,
       "always"
