@@ -47,7 +47,6 @@ gulp.task('lint', () =>
     .pipe(jscs({fix: true}))
     .pipe(jscs.reporter())
     .pipe(jscs.reporter('fail'))
-    .pipe(gulp.dest('src'))
 );
 
 // Optimize images
@@ -75,17 +74,7 @@ gulp.task('copy', () =>
 
 // Compile and automatically prefix stylesheets
 gulp.task('styles', () => {
-  const AUTOPREFIXER_BROWSERS = [
-    'ie >= 10',
-    'ie_mob >= 10',
-    'ff >= 30',
-    'chrome >= 34',
-    'safari >= 7',
-    'opera >= 23',
-    'ios >= 7',
-    'android >= 4.4',
-    'bb >= 10'
-  ];
+  const AUTOPREFIXER_BROWSERS = ['last 2 versions'];
 
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
