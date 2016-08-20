@@ -44,10 +44,10 @@ gulp.task('lint', () =>
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.if(!browserSync.active, $.eslint.failOnError()))
-   /* .pipe(jscs({fix: true}))
+    .pipe(jscs({fix: true}))
     .pipe(jscs.reporter())
     .pipe(jscs.reporter('fail'))
-    .pipe(gulp.dest('src'))*/
+    .pipe(gulp.dest('src'))
 );
 
 // Optimize images

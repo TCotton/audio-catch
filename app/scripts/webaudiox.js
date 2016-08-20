@@ -1,4 +1,5 @@
 /* eslint-disable */
+// jscs:disable
 /**
  * Created by andywalpole on 20/08/2016.
  */
