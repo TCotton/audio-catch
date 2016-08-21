@@ -497,8 +497,10 @@ WebAudiox.ListenerObject3DUpdater = function(context, object3d) {
     } else {
       var position = new THREE.Vector3().getPositionFromMatrix(matrixWorld);
       var velocity = position.clone().sub(prevPosition).divideScalar(delta);
-      prevPosition.copy(position)
-      context.listener.setVelocity(velocity.x, velocity.y, velocity.z);
+      prevPosition.copy(position);
+      if (context.listener.setVelocity) {
+        context.listener.setVelocity(velocity.x, velocity.y, velocity.z);
+      }
     }
   }
 };
@@ -578,13 +580,15 @@ WebAudiox.PannerObject3DUpdater = function(panner, object3d) {
       var position = new THREE.Vector3().getPositionFromMatrix(matrixWorld);
       var velocity = position.clone().sub(prevPosition).divideScalar(delta);
       prevPosition.copy(position);
-      panner.setVelocity(velocity.x, velocity.y, velocity.z);
+      if (panner.setVelocity) {
+        panner.setVelocity(velocity.x, velocity.y, velocity.z);
+      }
     }
   }
-}
+};
 
 // @namespace defined WebAudiox namespace
-var WebAudiox = WebAudiox || {}
+var WebAudiox = WebAudiox || {};
 
 /**
  * display an analyser node in a canvas
@@ -906,7 +910,9 @@ WebAudiox.GameSoundListener = function(gameSounds) {
    * @return {WebAudiox.GameSounds} the object itself for linked API
    */
   this.stopFollow = function() {
-    context.listener.setVelocity(0, 0, 0);
+    if (context.listener.setVelocity) {
+      context.listener.setVelocity(0, 0, 0);
+    }
     this.listenerUpdater = null;
     return this;
   }
